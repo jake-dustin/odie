@@ -1,5 +1,5 @@
 from database import ClientDAO
-from ui.ui.selection_ui import SelectionUI
+from ui.selection_ui import SelectionUI
 
 
 class ClientSelectionUI(SelectionUI):
