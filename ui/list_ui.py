@@ -57,7 +57,6 @@ class ListUI:
 
     def prompt_action(self):
         enabled_actions = self.get_enabled_actions()
-        # allowed_keys = [action.key for action in enabled_actions]
         choice = Prompt.ask("Select an action", default="Q")
         # Execute the function associated with the selected action.
         for action in enabled_actions:
@@ -86,8 +85,7 @@ class ListUI:
         panel = Panel(formatted, title="Actions", expand=False)
         console.print(panel)
 
-    @staticmethod
-    def home():
+    def home(self):
         from ui.dashboard_list_ui import DashboardUI
         console.print(f"[bold blue]Going to home dashboard...[/bold blue]")
         return DashboardUI()

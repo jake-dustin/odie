@@ -34,7 +34,7 @@ class MigrationsListUI(CRUDMixin, PaginatedListUI):
     def __init__(self, page=1):
         # Get the migrations from the DAO.
         self.items = MigrationDAO.get_all()
-        super().__init__("Migrations", self.items, page)
+        super().__init__(self._name, self.items, page)
 
     @property
     def default_actions(self):

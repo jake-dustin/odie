@@ -11,7 +11,7 @@ class PaginatedListUI(PaginationMixin, ListUI):
 
     def __init__(self, title, items, page):
         ListUI.__init__(self, title, items)
-        self.setup_pagination(page, self.total_pages)
+        self.setup_pagination(page)
 
     @property
     def default_actions(self):

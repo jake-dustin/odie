@@ -5,9 +5,8 @@ from ui.action import Action
 
 # noinspection PyAttributeOutsideInit
 class PaginationMixin:
-    def setup_pagination(self, page, total_pages):
+    def setup_pagination(self, page):
         self.page = page
-        self.total_pages = total_pages
 
     def is_prev_enabled(self):
         return self.page > 1

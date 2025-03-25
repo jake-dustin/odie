@@ -17,6 +17,19 @@ def prompt_for_fields(field_defs, current_values=None):
     """
     results = {}
     for field, config in field_defs.items():
+        if "selection_ui" in config:
+            # selection_ui should be a callable that returns a UI instance.
+            selection_ui_class = config["selection_ui"]
+            # Instantiate and run the selection UI.
+            ui_instance = selection_ui_class()
+            # We assume that prompt_action() runs the UI and that the UI has a get_result() method.
+            ui_instance.display_table()
+            ui_instance.display_actions()
+            ui_instance.prompt_action()
+            # Use the result from the selection UI.
+            value = ui_instance.get_result()
+            results[field] = value["id"]
+            continue
         label = config.get("label", field)
         validator = config.get("validator", lambda x: True)
         default_value = config.get("default", "") if current_values is None else current_values.get(field, "")

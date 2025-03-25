@@ -1,9 +1,17 @@
 from console_instance import console
 from ui.action import Action
 from ui.paginated_list_ui import PaginatedListUI
+from ui.retrieval_mixin import RetrievalMixin
 
 
-class SelectionUI(PaginatedListUI):
+class SelectionUI(PaginatedListUI, RetrievalMixin):
+    def __init__(self, title=None, page=1):
+        if title is None:
+            title = self._name
+
+        self.items = self.dao.get_all()
+        super().__init__(title, self.items, page)
+
     @property
     def _name(self):
         return "Selection"
@@ -16,7 +24,7 @@ class SelectionUI(PaginatedListUI):
     def select_item(self):
         index = self.prompt_for_item("select")
         try:
-            self.result = self.items[index]
+            self.result = dict(self.items[index])
             console.print(f"[bold green]Selected item: {self.result.get('name', 'N/A')}[/bold green]")
         except IndexError:
             console.print(f"[bold red]Selected item not found[/bold red]")

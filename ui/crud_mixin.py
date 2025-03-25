@@ -3,10 +3,11 @@ from rich.prompt import Prompt
 
 from helpers.prompt_helper import prompt_for_fields
 from console_instance import console
+from ui.retrieval_mixin import RetrievalMixin
 
 
 # noinspection PyAttributeOutsideInit
-class CRUDMixin:
+class CRUDMixin(RetrievalMixin):
     @property
     def field_labels(self):
         """
@@ -14,10 +15,6 @@ class CRUDMixin:
         Subclasses must override this property.
         """
         raise NotImplementedError("Subclasses must provide field_labels.")
-
-    @property
-    def dao(self):
-        raise NotImplementedError("Subclasses must provide dao.")
 
     def create_item(self):
         console.print(f"[bold blue]Creating new {self._name}...[/bold blue]")
@@ -94,7 +91,3 @@ class CRUDMixin:
 
     def dao_delete(self, item_id):
         self.dao.delete(item_id)
-
-    def refresh_items(self):
-        """Refresh self.items from the data source. Can be overridden by subclass."""
-        self.items = self.dao.get_all()

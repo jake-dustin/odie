@@ -7,6 +7,6 @@ class ClientSelectionUI(SelectionUI):
     def _name(self):
         return "Client Selection"
 
-    def __init__(self):
-        self.items = ClientDAO.get_all()
-        super().__init__("Clients", self.items, 1)
+    @property
+    def dao(self):
+        return ClientDAO
